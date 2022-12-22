@@ -5,6 +5,8 @@ from pyspark.sql import SparkSession
 from pyspark.sql.functions import udf, col
 from pyspark.sql.functions import year, month, dayofmonth, hour, weekofyear, date_format
 import pyspark.sql.types as TS
+from pyspark.sql.functions import dayofweek
+from pyspark.sql.functions import monotonically_increasing_id
 
 config = configparser.ConfigParser()
 config.read('dl.cfg')
@@ -28,13 +30,13 @@ def process_song_data(spark, input_data, output_data):
     df = spark.read.json(song_data)
 
     # extract columns to create songs table
-    songs_table = song_df.select('song_id','title','artist_id','year','duration')
+    songs_table = df.select('song_id','title','artist_id','year','duration')
     
     # write songs table to parquet files partitioned by year and artist
     songs_table.write.partitionBy('year','artist_id').mode('overwrite').parquet('{}songs.parquet'.format(output_data))
 
     # extract columns to create artists table
-    artists_table = song_df.select('artist_id','artist_name','artist_location',
+    artists_table = df.select('artist_id','artist_name','artist_location',
                                    'artist_latitude','artist_longitude')
     
     # write artists table to parquet files
