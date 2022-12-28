@@ -63,6 +63,6 @@ In case of using a notebook associated to an EMR Cluster, this file is not neces
 By running the etl.py file, the datasets are downloaded from the Amazon S3 bucket commented above, processed and saved in another Amazon S3 bucket as parquet files.
 
 ---
-## **Licensing, Authors, Acknowledgements, etc.**
+## **LICENSING, AUTHORS, ACKNOWLEDGEMENTS, ETC.**
 - **Author**: The author of this analysis is Gonzalo Gomez Millan
 - **Acknowledgment**: Also noteworthy is the work of **Udacity** in promoting the performance of this analysis as one of the projects in order to pass the Data Engineering Nanodegree Program.
