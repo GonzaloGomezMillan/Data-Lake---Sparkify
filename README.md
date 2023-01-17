@@ -38,7 +38,7 @@ The project datasets can be accessed through the following links:
 ---
 
 ## **DATABASE SCHEMA**
-![](Nanodegree_DWH_Schema.png)
+![](images/Nanodegree_DWH_Schema.png)
 
 ---
 
