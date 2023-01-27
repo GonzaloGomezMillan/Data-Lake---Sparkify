@@ -45,14 +45,14 @@ def process_song_data(spark, input_data, output_data):
     df = spark.read.json(song_data)
     
     # extract columns to create songs table
-    songs_table = df.select('song_id','title','artist_id','year','duration')
+    songs_table = df.select('song_id','title','artist_id','year','duration').dropDuplicates(['song_id'])
     
     # write songs table to parquet files partitioned by year and artist
     songs_table.write.partitionBy('year','artist_id').mode('overwrite').parquet(output_data + "songs/")
 
     # extract columns to create artists table
-    artists_table = df.select('artist_id','artist_name','artist_location',
-                                   'artist_latitude','artist_longitude')
+    artists_table = df.select('artist_id','artist_name','artist_location','artist_latitude',
+                              'artist_longitude').dropDuplicates(['artist_id'])
     
     # write artists table to parquet files
     artists_table.write.mode('overwrite').parquet(output_data + "artists/")
@@ -79,7 +79,7 @@ def process_log_data(spark, input_data, output_data):
     df = df.where(df.page == 'NextSong')
 
     # extract columns for users table    
-    users_table = df.select('userId','firstName','lastName','gender','level')
+    users_table = df.select('userId','firstName','lastName','gender','level').dropDuplicates(['userId'])
     
     # write users table to parquet files
     users_table.write.mode('overwrite').parquet(output_data + "users/")
@@ -93,8 +93,9 @@ def process_log_data(spark, input_data, output_data):
 #     df = 
     
     # extract columns to create time table
-    time_table = df.select('ts_timestamp', hour('ts_timestamp').alias('hour'), dayofmonth('ts_timestamp').alias('day'), weekofyear('ts_timestamp').alias('weekofyear'),
-                           month('ts_timestamp').alias('month'), year('ts_timestamp').alias('year'), dayofweek('ts_timestamp').alias('dayofweek'))
+    time_table = df.select('ts_timestamp', hour('ts_timestamp').alias('hour'), dayofmonth('ts_timestamp').alias('day'),
+                            weekofyear('ts_timestamp').alias('weekofyear'),month('ts_timestamp').alias('month'), 
+                            year('ts_timestamp').alias('year'), dayofweek('ts_timestamp').alias('dayofweek')).dropDuplicates(['ts_timestamp'])
     
     # write time table to parquet files partitioned by year and month
     time_table.write.partitionBy('year', 'month').mode('overwrite').parquet(output_data + "time/")
