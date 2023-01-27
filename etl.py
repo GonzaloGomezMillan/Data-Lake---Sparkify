@@ -16,7 +16,11 @@ os.environ['AWS_SECRET_ACCESS_KEY']=config['AWS']['AWS_SECRET_ACCESS_KEY']
 
 def create_spark_session():
     '''
-    Function which creates a SparkSession, which is an entry point to underlying Spark functionality in order to programmatically create Spark RDD, DataFrame, and DataSet.
+    Function which creates a SparkSession, which is an entry point to underlying Spark functionality in order to 
+    programmatically create Spark RDD, DataFrame, and DataSet.
+    
+    OUTPUT:
+    spark: SparkSession
     '''
     spark = SparkSession \
         .builder \
@@ -27,7 +31,12 @@ def create_spark_session():
 
 def process_song_data(spark, input_data, output_data):
     '''
-    Function which loads the data from the S3 bucket, creates the songs_table and artists_table and saves them as parquet files
+    Function which loads the data from the S3 bucket, creates the songs_table and artists_table and saves them as parquet files.
+    
+    INPUT:
+    spark: SparkSession
+    input_data (string): S3 bucket address of the input data
+    output_data (string): S3 bucket address to save the processed data
     '''
     # get filepath to song data file
     song_data = '{}{}'.format(input_data, 'song_data/*/*/*/*.json')
@@ -51,7 +60,13 @@ def process_song_data(spark, input_data, output_data):
 
 def process_log_data(spark, input_data, output_data):
     '''
-    Function which loads the data from the S3 bucket, creates the users_table, time_table and songplays_table and saves them as parquet files 
+    Function which loads the data from the S3 bucket, creates the users_table, time_table and songplays_table and saves
+    them as parquet files.
+    
+    INPUT:
+    spark: SparkSession
+    input_data (string): S3 bucket address of the input data
+    output_data (string): S3 bucket address to save the processed data
     '''
     # get filepath to log data file
     log_data = '{}{}'.format(input_data, 'log_data/*/*/*.json')
