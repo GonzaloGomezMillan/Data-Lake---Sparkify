@@ -15,6 +15,9 @@ os.environ['AWS_ACCESS_KEY_ID']=config['AWS']['AWS_ACCESS_KEY_ID']
 os.environ['AWS_SECRET_ACCESS_KEY']=config['AWS']['AWS_SECRET_ACCESS_KEY']
 
 def create_spark_session():
+    '''
+    Function which creates a SparkSession, which is an entry point to underlying Spark functionality in order to programmatically create Spark RDD, DataFrame, and DataSet.
+    '''
     spark = SparkSession \
         .builder \
         .config("spark.jars.packages", "org.apache.hadoop:hadoop-aws:2.7.0") \
@@ -23,6 +26,9 @@ def create_spark_session():
 
 
 def process_song_data(spark, input_data, output_data):
+    '''
+    Function which loads the data from the S3 bucket, creates the songs_table and artists_table and saves them as parquet files
+    '''
     # get filepath to song data file
     song_data = '{}{}'.format(input_data, 'song_data/*/*/*/*.json')
     
@@ -44,6 +50,9 @@ def process_song_data(spark, input_data, output_data):
 
 
 def process_log_data(spark, input_data, output_data):
+    '''
+    Function which loads the data from the S3 bucket, creates the users_table, time_table and songplays_table and saves them as parquet files 
+    '''
     # get filepath to log data file
     log_data = '{}{}'.format(input_data, 'log_data/*/*/*.json')
     song_data = '{}{}'.format(input_data, 'song_data/*/*/*/*.json')
@@ -89,6 +98,9 @@ def process_log_data(spark, input_data, output_data):
     songplays_table.write.partitionBy('year', 'month').mode('overwrite').parquet(output_data + "songplays/")
 
 def main():
+    '''
+    Main function which runs the defined code to create an star schema optimized for queries on song play analysis.
+    '''
     spark = create_spark_session()
     input_data = "s3a://udacity-dend/"
     output_data = "s3a://sparkifyggo/"
