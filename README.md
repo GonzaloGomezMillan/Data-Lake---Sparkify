@@ -63,5 +63,5 @@ By running the etl.py file, the datasets are downloaded from the Amazon S3 bucke
 
 ---
 ## **LICENSING, AUTHORS, ACKNOWLEDGEMENTS, ETC.**
-- **Author**: The author of this analysis is Gonzalo Gomez Millan
-- **Acknowledgment**: Also noteworthy is the work of **Udacity** in promoting the performance of this analysis as one of the projects in order to pass the Data Engineering Nanodegree Program.
+- **Author**: The author of this project is Gonzalo Gomez Millan
+- **Acknowledgment**: Also noteworthy is the work of **Udacity** by promoting  this analysis as one of the projects of the Data Engineering Nanodegree Program.
